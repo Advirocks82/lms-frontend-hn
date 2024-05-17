@@ -29,7 +29,7 @@ npm  run dev
 
 [Tail wind official instruction doc](https://tailwindcss.com/docs/installation)
 
-1. Install Tailwind css
+1. Install Tailwind css postcss autoprefixer
 
 ```
 npm install -D tailwindcss
@@ -44,7 +44,7 @@ npx tailwindcss init
 3. Add file extentions to tailwind config file in the contents property
 
 ```
-"./src/**/*.{html,js,jsx,ts,tsx}"
+"./src/**/*.{html,js,jsx,ts,tsx}","./index.html",
 
 ```
 
