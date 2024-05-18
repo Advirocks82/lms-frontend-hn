@@ -1,7 +1,8 @@
 import { FiMenu } from 'react-icons/fi';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
+import { useDispatch, useSelector } from 'react-redux';
 
 /*
 Key Changes Using the Chatgpt when original code was not run well:
@@ -16,6 +17,16 @@ note: These changes will ensure that the drawer opens and closes correctly and
  that it is properly overlaid and positioned.
 */
 function HomeLayout({children}) {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // for checking if user  is logged in
+    const isloggedIn = useSelector((state)=> state?.auth?.isloggedIn);
+
+    // for displaying the options acc to role
+
+    const role = useSelector((state) => state?.auth?.role);
 
     function changeWidth() {
         const drawerSide = document.getElementsByClassName("drawer-side");
@@ -44,7 +55,15 @@ function HomeLayout({children}) {
                 hideDrawer();
             }
         }
-    }
+  }
+        function handleLogout(e){
+            e.preventDefault();
+
+            // const res = await dispatch(logout());
+            // if(res?.payload?.success)
+            navigate('/');
+        }
+
 
     return (
         <div className="min-h-[90vh]">
@@ -70,6 +89,11 @@ function HomeLayout({children}) {
                         <li>
                             <Link to="/">Home</Link>
                         </li>
+                        {isloggedIn && role === 'ADMIN' && (
+                            <li>
+                                <Link to="/admin/dashboard">Admin DashBoard</Link>
+                            </li>
+                        )}
                         <li>
                             <Link to="/courses">All Courses</Link>
                         </li>
@@ -79,6 +103,32 @@ function HomeLayout({children}) {
                         <li>
                             <Link to="/about">About Us</Link>
                         </li>
+
+                        {!isloggedIn && (
+                            <li className='absolute bottom-4 w-[90%]'>
+                            <div className='w-full flex items-center justify-center'>
+                                <button className='btn-primary px-4 py-1 font-semibold rounded-md w-full bg-purple-500 '>
+                                    <Link to="/login">Login</Link>
+                                </button>
+                                <button className='btn-secondary px-4 py-1 font-semibold rounded-md w-full bg-pink-500 '>
+                                    <Link to="/login">Signup</Link>
+                                </button>
+                            </div>
+                            </li>
+                        )}
+                        
+                        {isloggedIn && (
+                            <li className='absolute bottom-4 w-[90%]'>
+                            <div className='w-full flex items-center justify-center'>
+                                <button className='btn-primary px-4 py-1 font-semibold rounded-md w-full bg-purple-500 '>
+                                    <Link to="/user/profile">Profile</Link>
+                                </button>
+                                <button className='btn-secondary px-4 py-1 font-semibold rounded-md w-full bg-pink-500 '>
+                                    <Link onClick={handleLogout}>Logout</Link>
+                                </button>
+                            </div>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
