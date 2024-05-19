@@ -80,7 +80,7 @@ function HomeLayout({children}) {
                 </div>
                 <div className="drawer-side transition-width duration-300" style={{ width: '0' }}>
                     <label htmlFor="my-drawer" className="drawer-overlay" onClick={hideDrawer}></label>
-                    <ul className="menu p-4 w-64 bg-base-200 text-base-content relative">
+                    <ul className="menu p-4 w-64 h-[100%] bg-base-200 text-base-content relative">
                         <li className="absolute right-2 z-50">
                             <button onClick={hideDrawer}>
                                 <AiFillCloseCircle size={24} />

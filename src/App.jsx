@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 // import Home from './Components/Home'; // Make sure to import the Home component
 // import HomeLayout from './Layouts/HomeLayout';
 import HomePage from './Pages/HomePage';
+import AboutUs from './Pages/AboutUs';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -11,6 +12,7 @@ function App() {
     <>
         <Routes>
           <Route path='/' element={<HomePage/>}></Route>
+          <Route path='/about' element={ < AboutUs /> }> </Route>
         </Routes>
       {/* <HomeLayout/> */}
     </>
