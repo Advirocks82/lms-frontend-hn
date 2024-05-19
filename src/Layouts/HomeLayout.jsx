@@ -3,6 +3,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../Redux/Slices/AuthSlice';
 
 /*
 Key Changes Using the Chatgpt when original code was not run well:
@@ -56,13 +57,13 @@ function HomeLayout({children}) {
             }
         }
   }
-        function handleLogout(e){
-            e.preventDefault();
+  async function handleLogout(e) {
+    e.preventDefault();
 
-            // const res = await dispatch(logout());
-            // if(res?.payload?.success)
-            navigate('/');
-        }
+    const res = await dispatch(logout());
+    if(res?.payload?.success)
+    navigate("/");
+}
 
 
     return (
