@@ -1,10 +1,7 @@
 import HomeLayout from "../Layouts/HomeLayout";
 import aboutMainImage from "../Assets/Images/aboutMainImage.png";
-import apj from "../Assets/Images/apj.png";
-import steveJobs from "../Assets/Images/steveJobs.png";
-import einstein from "../Assets/Images/einstein.png";
-import nelsonMandela from "../Assets/Images/nelsonMandela.png";
-import billGates from "../Assets/Images/billGates.png";
+import { celebrities } from "../Constants/CelebrityData";
+import CarouselSlide from "../Components/CarouselSlide";
 
 function AboutUs(){
     return(
@@ -33,7 +30,7 @@ function AboutUs(){
                     </div>
                 </div>
                 {/* part two carousal */}
-                <div className="carousel w-1/2 m-auto my-16">
+                {/* <div className="carousel w-1/2 m-auto my-16">
                     <div id="slide1" className="carousel-item relative w-full">
                        <div className="flex flex-col items-center justify-center gap-4 px-[15%]">
                                 <img src={nelsonMandela} className="w-40 rounded-full border-2 border-gray-400" />
@@ -99,7 +96,17 @@ function AboutUs(){
                             </div>
                        </div>
                     </div>
-                    </div>
+                    </div> */}
+                    {/* Instead of this code we use Array of celebrities and code whole process in a CelebrityData.js for reference please check once */}
+                    <div className="carousel w-1/2 m-auto my-16">
+                    {celebrities && celebrities.map(celebrity => (<CarouselSlide 
+                                                                    {...celebrity} 
+                                                                    key={celebrity.slideNumber} 
+                                                                    totalSlides={celebrities.length}
+
+                                                                />))}
+
+                                                                </div>
             </div>
        </HomeLayout>
     );   
