@@ -7,6 +7,8 @@ import AboutUs from './Pages/AboutUs';
 import NotFound from './Pages/NotFound';
 import Signup from './Pages/Signup';
 import Login from './Pages/Login';
+// import CourseList from './Pages/CourseList';
+
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -15,7 +17,8 @@ function App() {
     <>
         <Routes>
           <Route path='/' element={<HomePage/>}></Route>
-          <Route path='/about' element={ < AboutUs /> }> </Route>
+          {/* <Route path='/about' element={ < AboutUs /> }> </Route> */}
+          {/* <Route path="/courses" element={<CourseList />} /> */}
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element = {< NotFound />}></Route>
