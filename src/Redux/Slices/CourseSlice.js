@@ -60,11 +60,11 @@ const courseSlice = createSlice({
     reducers: {},
 
     extraReducers: (builder) => {
-    //     builder.addCase(getAllCourses.fulfilled, (state, action) => {
-    //         if(action.payload) {
-    //             state.courseData = [...action.payload];
-    //         }
-    //     })
+        builder.addCase(getAllCourses.fulfilled, (state, action) => {
+            if(action.payload) {
+                state.courseData = [...action.payload];
+            }
+        })
      }
 
 });
