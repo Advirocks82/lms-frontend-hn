@@ -3,9 +3,9 @@ import { toast } from 'react-hot-toast'; // Importing toast for showing notifica
 import { BsPersonCircle } from 'react-icons/bs'; // Importing an icon from react-icons
 import { useDispatch } from 'react-redux'; // Importing useDispatch hook for dispatching Redux actions
 import { Link, useNavigate } from 'react-router-dom'; // Importing Link for navigation and useNavigate for programmatic navigation
-
 import HomeLayout from '../Layouts/HomeLayout'; // Importing the layout component
 import { createAccount } from '../Redux/Slices/AuthSlice'; // Importing the createAccount action from AuthSlice
+import { isEmail, isValidPassword } from '../Helpers/regexMatcher';
 
 function Signup() {
 
@@ -66,16 +66,15 @@ function Signup() {
             return;
         }
         // Checking for valid email
-        if (!signupData.email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        if(!isEmail(signupData.email)) {
             toast.error("Invalid email id"); // Showing error toast if email is invalid
             return;
         }
         // Checking password validation
-        if (!signupData.password.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/)) {
+        if(!isValidPassword(signupData.password)) {
             toast.error("Password should be 6 - 16 character long with at least a number and special character"); // Showing error toast if password is invalid
             return;
         }
-
         const formData = new FormData(); // Creating a FormData object to send the form data
         formData.append("fullName", signupData.fullName);
         formData.append("email", signupData.email);
