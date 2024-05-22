@@ -1,13 +1,25 @@
 // import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
-import axiosInstance from "../../Helpers/axiosInstance"
+import axiosInstance from "../../Helpers/axiosInstance";
 
+// Helper function to safely parse JSON
+const safeJSONParse = (value) => {
+    if (value === null || value === "") return null;
+    try {
+        return JSON.parse(value);
+    } catch (e) {
+        return null;
+    }
+};
 // Initial state of the auth slice, including values retrieved from localStorage if available
 const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn') || false,
     role: localStorage.getItem('role') || "",
-    // data: JSON.parse(localStorage.getItem('data')) || {} UPdate while complete the whole code 
+    data: localStorage.getItem('data') != undefined ? safeJSONParse(localStorage.getItem('data')) : {} //UPdate while complete the whole code 
+// Above line help to short out the error which comes through the below line code so that reason I used to resolve using above line of code with helper function for safely json implementation
+ //    data: localStorage.getItem('data') != undefined ? JSON.parse(localStorage.getItem('data')) : {}
+//Above line by Lms project mentor 
 };
 
 // Async thunk for creating a new account
@@ -86,7 +98,22 @@ extraReducers: (builder) => {
         state.data = {};
         state.isLoggedIn = false;
         state.role = "";
-    });
+    })
+
+
+//  AFTER ADDING THE BACKEND THEN UNCOMMENT THE BELOW CODE
+
+
+
+    // .addCase(getUserData.fulfilled, (state, action) => {
+    //     if(!action?.payload?.user) return;
+    //     localStorage.setItem("data", JSON.stringify(action?.payload?.user));
+    //     localStorage.setItem("isLoggedIn", true);
+    //     localStorage.setItem("role", action?.payload?.user?.role);
+    //     state.isLoggedIn = true;
+    //     state.data = action?.payload?.user;
+    //     state.role = action?.payload?.user?.role
+    // });
 }
 });
 
