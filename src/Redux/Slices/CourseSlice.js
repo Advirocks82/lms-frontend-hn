@@ -3,9 +3,7 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "../../Helpers/axiosInstance";
 
 const initialState = {
-
     courseData: []
-
 }
 
 export const getAllCourses = createAsyncThunk("/course/get", async () => {
@@ -21,7 +19,20 @@ export const getAllCourses = createAsyncThunk("/course/get", async () => {
     } catch(error) {
         toast.error(error?.response?.data?.message);
     }
+}); 
 
+export const deleteCourse = createAsyncThunk("/course/delete", async (id) => {
+    try {
+        const response = axiosInstance.delete(`/courses/${id}`);
+        toast.promise(response, {
+            loading: "deleting course ...",
+            success: "Courses deleted successfully",
+            error: "Failed to delete the courses",
+        });
+        return (await response).data;
+    } catch(error) {
+        toast.error(error?.response?.data?.message);
+    }
 }); 
 
 export const createNewCourse = createAsyncThunk("/course/create", async (data) => {
@@ -39,22 +50,16 @@ export const createNewCourse = createAsyncThunk("/course/create", async (data) =
             success: "Course created successfully",
             error: "Failed to create course"
         });
-
         return (await response).data
-
     } catch(error) {
         toast.error(error?.response?.data?.message);
     }
 });
 
 const courseSlice = createSlice({
-
     name: "courses",
-
     initialState,
-
     reducers: {},
-
     extraReducers: (builder) => {
         builder.addCase(getAllCourses.fulfilled, (state, action) => {
             if(action.payload) {
@@ -62,7 +67,5 @@ const courseSlice = createSlice({
             }
         })
      }
-
 });
-
 export default courseSlice.reducer;

@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-
+    
 import HomeLayout from "../../Layouts/HomeLayout";
 import { addCourseLecture } from "../../Redux/Slices/LectureSlice";
 
@@ -15,7 +15,7 @@ function AddLecture() {
     const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState({
-        id: courseDetails._id,
+        id: courseDetails?._id,
         lecture: undefined,
         title: "",
         description: "",
@@ -51,7 +51,7 @@ function AddLecture() {
         if(response?.payload?.success) {
             navigate(-1);
             setUserInput({
-                id: courseDetails._id,
+                id: courseDetails?._id,
                 lecture: undefined,
                 title: "",
                 description: "",
