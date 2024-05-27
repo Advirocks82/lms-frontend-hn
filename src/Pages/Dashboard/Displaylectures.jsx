@@ -8,34 +8,19 @@ function Displaylectures() {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-
     const {state} = useLocation();
-
     const {lectures} = useSelector((state) => state.lecture);
-
     const {role} = useSelector((state) => state.auth);
-
     const [currentVideo, setCurrentVideo] = useState(0);
-
     async function onLectureDelete(courseId, lectureId) {
-
         console.log(courseId, lectureId);
-
         await dispatch(deleteCourseLecture({courseId: courseId, lectureId: lectureId}));
-
         await dispatch(getCourseLectures(courseId));
 
     }
-
-
-
-
     useEffect(() => {
-
         console.log(state);
-
         if(!state) navigate("/courses");
-
         dispatch(getCourseLectures(state._id));
 
     }, []);
@@ -45,12 +30,11 @@ function Displaylectures() {
                 <div className="text-center text-2xl font-semibold text-yellow-500">
                     Course Name: {state?.title}
                 </div>
-                {lectures && lectures.length > 0 && <div className="flex justify-center gap-10 w-full">
 
+                {(lectures && lectures.length > 0 ) ?  
+                    (<div className="flex justify-center gap-10 w-full">
                     {/* left section for playing videos and displaying course details to admin */}
-
                    <div className="space-y-5 w-[28rem] p-2 rounded-lg shadow-[0_0_10px_black]">
-
                         <video 
                             src={lectures && lectures[currentVideo]?.lecture?.secure_url}
                             className="object-fill rounded-tl-lg rounded-tr-lg w-full"   
@@ -99,23 +83,20 @@ function Displaylectures() {
                                                 Delete lecture
                                             </button>
                                         )}
-
                                     </li>
-
                                 )
-
                             })    
-
                         }
-
                    </ul>
-
-                </div>}
-
+                </div>) : (
+                    role === "ADMIN" && (
+                        <button onClick={() => navigate("/course/addlecture", {state: {...state}})} className="btn-primary px-2 py-1 rounded-md font-semibold text-sm">
+                            Add new lecture
+                        </button>
+                    )
+                )}
             </div>
-
         </HomeLayout>
-
     );
 
 }
